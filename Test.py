@@ -38,9 +38,10 @@ with torch.no_grad():
     o = model(text_tensor.to(device))
 
 n = torch.sigmoid(o).cpu().detach().numpy()
-print(f"{(n[0][0]*100):.4f}%")
+predic_spam_percentage = f"{(n[0][0]*100):.4f}%"
+predic_ham_percentage = f"{((1-n[0][0])*100):.4f}%"
 
 if n > 0.8: 
-    print('Spam')
+    print('Prediction: Spam ', predic_spam_percentage, " certain")
 else:
-    print("Ham")
+    print("Prediction: Ham", (predic_ham_percentage), " certain")
